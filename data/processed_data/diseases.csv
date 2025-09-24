@@ -1,0 +1,8 @@
+disease_id,name,canonical_id,description,prevalence,risk_factors
+d1,Common Cold,ICD10:J00,Viral infection of the upper respiratory tract.,very_common,Cold weather;Weakened immune system
+d2,Influenza,ICD10:J10,Highly contagious viral infection.,common,Close contact;Elderly
+d3,Pneumonia,ICD10:J18,Infection that inflames air sacs in one or both lungs.,uncommon,Smoking;Chronic disease
+d4,Asthma,ICD10:J45,Condition in which airways narrow and swell.,common,Allergies;Air pollution
+d5,COVID-19,U07.1,Respiratory illness caused by SARS-CoV-2.,pandemic,Close contact;Chronic illness
+d6,Migraine,ICD10:G43,Neurological condition causing recurrent headaches.,common,Stress;Sleep deprivation
+d7,Gastroenteritis,ICD10:A09,Inflammation of the stomach and intestines.,common,Contaminated food;Travel

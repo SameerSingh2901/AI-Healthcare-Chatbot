@@ -1,0 +1,116 @@
+[
+  {
+    "uid": "d1",
+    "name": "Common Cold",
+    "canonical_id": "ICD10:J00",
+    "description": "Viral infection of the upper respiratory tract.",
+    "prevalence": "very_common",
+    "symptoms": [
+      {"symptom_id": "s1", "weight": 0.9},
+      {"symptom_id": "s2", "weight": 0.8},
+      {"symptom_id": "s3", "weight": 0.6}
+    ],
+    "risk_factors": ["Cold weather", "Weakened immune system"],
+    "cures": ["c1", "c2"],
+    "medicines": ["m1", "m2"],
+    "precautions": ["p1"]
+  },
+  {
+    "uid": "d2",
+    "name": "Influenza",
+    "canonical_id": "ICD10:J10",
+    "description": "Highly contagious viral infection.",
+    "prevalence": "common",
+    "symptoms": [
+      {"symptom_id": "s2", "weight": 0.4},
+      {"symptom_id": "s4", "weight": 0.9},
+      {"symptom_id": "s5", "weight": 0.8},
+      {"symptom_id": "s6", "weight": 0.7},
+      {"symptom_id": "s12", "weight": 0.6}
+    ],
+    "risk_factors": ["Close contact", "Elderly"],
+    "cures": ["c3"],
+    "medicines": ["m1", "m3"],
+    "precautions": ["p2"]
+  },
+  {
+    "uid": "d3",
+    "name": "Pneumonia",
+    "canonical_id": "ICD10:J18",
+    "description": "Infection that inflames air sacs in one or both lungs.",
+    "prevalence": "uncommon",
+    "symptoms": [
+      {"symptom_id": "s4", "weight": 0.8},
+      {"symptom_id": "s7", "weight": 0.9},
+      {"symptom_id": "s8", "weight": 0.7}
+    ],
+    "risk_factors": ["Smoking", "Chronic disease"],
+    "cures": ["c4"],
+    "medicines": ["m4", "m5"],
+    "precautions": ["p3"]
+  },
+  {
+    "uid": "d4",
+    "name": "Asthma",
+    "canonical_id": "ICD10:J45",
+    "description": "Condition in which airways narrow and swell.",
+    "prevalence": "common",
+    "symptoms": [
+      {"symptom_id": "s7", "weight": 0.5},
+      {"symptom_id": "s9", "weight": 0.9},
+      {"symptom_id": "s10", "weight": 0.8}
+    ],
+    "risk_factors": ["Allergies", "Air pollution"],
+    "cures": ["c5"],
+    "medicines": ["m6", "m7"],
+    "precautions": ["p4"]
+  },
+  {
+    "uid": "d5",
+    "name": "COVID-19",
+    "canonical_id": "U07.1",
+    "description": "Respiratory illness caused by SARS-CoV-2.",
+    "prevalence": "pandemic",
+    "symptoms": [
+      {"symptom_id": "s4", "weight": 0.8},
+      {"symptom_id": "s6", "weight": 0.7},
+      {"symptom_id": "s7", "weight": 0.9},
+      {"symptom_id": "s11", "weight": 0.85}
+    ],
+    "risk_factors": ["Close contact", "Chronic illness"],
+    "cures": ["c3", "c6"],
+    "medicines": ["m1", "m8"],
+    "precautions": ["p5"]
+  },
+  {
+    "uid": "d6",
+    "name": "Migraine",
+    "canonical_id": "ICD10:G43",
+    "description": "Neurological condition causing recurrent headaches.",
+    "prevalence": "common",
+    "symptoms": [
+      {"symptom_id": "s12", "weight": 0.9},
+      {"symptom_id": "s13", "weight": 0.7}
+    ],
+    "risk_factors": ["Stress", "Sleep deprivation"],
+    "cures": ["c7"],
+    "medicines": ["m9"],
+    "precautions": ["p6"]
+  },
+  {
+    "uid": "d7",
+    "name": "Gastroenteritis",
+    "canonical_id": "ICD10:A09",
+    "description": "Inflammation of the stomach and intestines.",
+    "prevalence": "common",
+    "symptoms": [
+      {"symptom_id": "s13", "weight": 0.9},
+      {"symptom_id": "s4", "weight": 0.7},
+      {"symptom_id": "s6", "weight": 0.6}
+    ],
+    "risk_factors": ["Contaminated food", "Travel"],
+    "cures": ["c8"],
+    "medicines": ["m10"],
+    "precautions": ["p7"]
+  }
+]

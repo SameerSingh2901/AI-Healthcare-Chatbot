@@ -1,0 +1,93 @@
+[
+  {
+    "uid": "s1",
+    "name": "Runny nose",
+    "description": "Clear nasal discharge, often due to viral infection",
+    "body_site": "Nose",
+    "commonness": "very_common"
+  },
+  {
+    "uid": "s2",
+    "name": "Sneezing",
+    "description": "Sudden expulsion of air through nose and mouth",
+    "body_site": "Nose",
+    "commonness": "common"
+  },
+  {
+    "uid": "s3",
+    "name": "Sore throat",
+    "description": "Pain or irritation in the throat",
+    "body_site": "Throat",
+    "commonness": "common"
+  },
+  {
+    "uid": "s4",
+    "name": "Fever",
+    "description": "Body temperature above 38°C",
+    "body_site": "Systemic",
+    "commonness": "very_common"
+  },
+  {
+    "uid": "s5",
+    "name": "Body aches",
+    "description": "Generalized muscle and joint pain",
+    "body_site": "Systemic",
+    "commonness": "common"
+  },
+  {
+    "uid": "s6",
+    "name": "Fatigue",
+    "description": "Persistent feeling of tiredness",
+    "body_site": "Systemic",
+    "commonness": "common"
+  },
+  {
+    "uid": "s7",
+    "name": "Cough",
+    "description": "Expulsion of air from lungs",
+    "body_site": "Chest",
+    "commonness": "very_common"
+  },
+  {
+    "uid": "s8",
+    "name": "Chest pain",
+    "description": "Pain or discomfort in the chest area",
+    "body_site": "Chest",
+    "commonness": "uncommon"
+  },
+  {
+    "uid": "s9",
+    "name": "Wheezing",
+    "description": "Whistling sound during breathing",
+    "body_site": "Chest",
+    "commonness": "common"
+  },
+  {
+    "uid": "s10",
+    "name": "Shortness of breath",
+    "description": "Difficulty breathing",
+    "body_site": "Chest",
+    "commonness": "common"
+  },
+  {
+    "uid": "s11",
+    "name": "Loss of taste/smell",
+    "description": "Reduced or lost sense of taste or smell",
+    "body_site": "Systemic",
+    "commonness": "common"
+  },
+  {
+    "uid": "s12",
+    "name": "Headache",
+    "description": "Pain in the head region",
+    "body_site": "Head",
+    "commonness": "common"
+  },
+  {
+    "uid": "s13",
+    "name": "Nausea",
+    "description": "Feeling of sickness with inclination to vomit",
+    "body_site": "Digestive",
+    "commonness": "common"
+  }
+]

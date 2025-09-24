@@ -1,0 +1,14 @@
+symptom_id,name,description,body_site,commonness
+s1,Runny nose,"Clear nasal discharge, often due to viral infection",Nose,very_common
+s2,Sneezing,Sudden expulsion of air through nose and mouth,Nose,common
+s3,Sore throat,Pain or irritation in the throat,Throat,common
+s4,Fever,Body temperature above 38°C,Systemic,very_common
+s5,Body aches,Generalized muscle and joint pain,Systemic,common
+s6,Fatigue,Persistent feeling of tiredness,Systemic,common
+s7,Cough,Expulsion of air from lungs,Chest,very_common
+s8,Chest pain,Pain or discomfort in the chest area,Chest,uncommon
+s9,Wheezing,Whistling sound during breathing,Chest,common
+s10,Shortness of breath,Difficulty breathing,Chest,common
+s11,Loss of taste/smell,Reduced or lost sense of taste or smell,Systemic,common
+s12,Headache,Pain in the head region,Head,common
+s13,Nausea,Feeling of sickness with inclination to vomit,Digestive,common

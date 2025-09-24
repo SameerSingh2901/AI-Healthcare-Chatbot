@@ -1,0 +1,72 @@
+[
+  {
+    "uid": "m1",
+    "name": "Paracetamol",
+    "drug_class": "Analgesic/Antipyretic",
+    "dosage_form": "Tablet",
+    "description": "Reduces fever and relieves pain."
+  },
+  {
+    "uid": "m2",
+    "name": "Antihistamines",
+    "drug_class": "Antiallergic",
+    "dosage_form": "Tablet/Syrup",
+    "description": "Relieves runny nose and sneezing."
+  },
+  {
+    "uid": "m3",
+    "name": "Oseltamivir",
+    "drug_class": "Antiviral",
+    "dosage_form": "Capsule",
+    "description": "Used to treat influenza infections."
+  },
+  {
+    "uid": "m4",
+    "name": "Azithromycin",
+    "drug_class": "Antibiotic",
+    "dosage_form": "Tablet",
+    "description": "Used for bacterial pneumonia treatment."
+  },
+  {
+    "uid": "m5",
+    "name": "Amoxicillin",
+    "drug_class": "Antibiotic",
+    "dosage_form": "Capsule",
+    "description": "Broad-spectrum antibiotic for respiratory infections."
+  },
+  {
+    "uid": "m6",
+    "name": "Salbutamol",
+    "drug_class": "Bronchodilator",
+    "dosage_form": "Inhaler",
+    "description": "Relieves asthma symptoms by relaxing airway muscles."
+  },
+  {
+    "uid": "m7",
+    "name": "Corticosteroids",
+    "drug_class": "Anti-inflammatory",
+    "dosage_form": "Inhaler/Tablet",
+    "description": "Reduces airway inflammation in asthma."
+  },
+  {
+    "uid": "m8",
+    "name": "Remdesivir",
+    "drug_class": "Antiviral",
+    "dosage_form": "Injection",
+    "description": "Used in severe cases of COVID-19."
+  },
+  {
+    "uid": "m9",
+    "name": "Triptans",
+    "drug_class": "Antimigraine",
+    "dosage_form": "Tablet/Nasal spray",
+    "description": "Treats acute migraine attacks."
+  },
+  {
+    "uid": "m10",
+    "name": "Loperamide",
+    "drug_class": "Antidiarrheal",
+    "dosage_form": "Capsule",
+    "description": "Relieves diarrhea in gastroenteritis."
+  }
+]

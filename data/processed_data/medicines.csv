@@ -1,0 +1,11 @@
+medicine_id,name,description,drug_class,dosage_form
+m1,Paracetamol,Reduces fever and relieves pain.,Analgesic/Antipyretic,Tablet
+m2,Antihistamines,Relieves runny nose and sneezing.,Antiallergic,Tablet/Syrup
+m3,Oseltamivir,Used to treat influenza infections.,Antiviral,Capsule
+m4,Azithromycin,Used for bacterial pneumonia treatment.,Antibiotic,Tablet
+m5,Amoxicillin,Broad-spectrum antibiotic for respiratory infections.,Antibiotic,Capsule
+m6,Salbutamol,Relieves asthma symptoms by relaxing airway muscles.,Bronchodilator,Inhaler
+m7,Corticosteroids,Reduces airway inflammation in asthma.,Anti-inflammatory,Inhaler/Tablet
+m8,Remdesivir,Used in severe cases of COVID-19.,Antiviral,Injection
+m9,Triptans,Treats acute migraine attacks.,Antimigraine,Tablet/Nasal spray
+m10,Loperamide,Relieves diarrhea in gastroenteritis.,Antidiarrheal,Capsule

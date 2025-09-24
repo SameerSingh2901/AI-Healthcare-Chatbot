@@ -1,0 +1,9 @@
+cure_id,name,description,type
+c1,Rest and hydration,Adequate rest and fluid intake to support recovery.,home_remedy
+c2,Steam inhalation,Inhaling steam to relieve nasal congestion.,home_remedy
+c3,Bed rest,Resting in bed to reduce body strain during illness.,general_care
+c4,Oxygen therapy,Supplemental oxygen for patients with breathing difficulty.,hospital_treatment
+c5,Breathing exercises,Exercises to strengthen lungs and improve airflow.,therapy
+c6,Isolation,Separating infected patients to prevent disease spread.,preventive_care
+c7,Cold compress,Applying cold packs to relieve migraine pain.,home_remedy
+c8,Oral rehydration solution (ORS),Fluid replacement therapy to prevent dehydration.,general_care

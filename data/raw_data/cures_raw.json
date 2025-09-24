@@ -1,0 +1,50 @@
+[
+  {
+    "uid": "c1",
+    "name": "Rest and hydration",
+    "type": "home_remedy",
+    "description": "Adequate rest and fluid intake to support recovery."
+  },
+  {
+    "uid": "c2",
+    "name": "Steam inhalation",
+    "type": "home_remedy",
+    "description": "Inhaling steam to relieve nasal congestion."
+  },
+  {
+    "uid": "c3",
+    "name": "Bed rest",
+    "type": "general_care",
+    "description": "Resting in bed to reduce body strain during illness."
+  },
+  {
+    "uid": "c4",
+    "name": "Oxygen therapy",
+    "type": "hospital_treatment",
+    "description": "Supplemental oxygen for patients with breathing difficulty."
+  },
+  {
+    "uid": "c5",
+    "name": "Breathing exercises",
+    "type": "therapy",
+    "description": "Exercises to strengthen lungs and improve airflow."
+  },
+  {
+    "uid": "c6",
+    "name": "Isolation",
+    "type": "preventive_care",
+    "description": "Separating infected patients to prevent disease spread."
+  },
+  {
+    "uid": "c7",
+    "name": "Cold compress",
+    "type": "home_remedy",
+    "description": "Applying cold packs to relieve migraine pain."
+  },
+  {
+    "uid": "c8",
+    "name": "Oral rehydration solution (ORS)",
+    "type": "general_care",
+    "description": "Fluid replacement therapy to prevent dehydration."
+  }
+]

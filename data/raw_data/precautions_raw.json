@@ -1,0 +1,37 @@
+[
+  {
+    "uid": "p1",
+    "name": "Wash hands frequently",
+    "description": "Maintain hygiene to prevent infection spread."
+  },
+  {
+    "uid": "p2",
+    "name": "Annual flu vaccine",
+    "description": "Yearly vaccination to reduce influenza risk."
+  },
+  {
+    "uid": "p3",
+    "name": "Vaccination (pneumococcal)",
+    "description": "Prevents pneumonia caused by bacteria."
+  },
+  {
+    "uid": "p4",
+    "name": "Carry inhaler",
+    "description": "Asthma patients should always keep inhalers handy."
+  },
+  {
+    "uid": "p5",
+    "name": "Mask wearing",
+    "description": "Use face masks to reduce COVID-19 spread."
+  },
+  {
+    "uid": "p6",
+    "name": "Sleep hygiene",
+    "description": "Maintain regular sleep patterns to prevent migraines."
+  },
+  {
+    "uid": "p7",
+    "name": "Hand hygiene",
+    "description": "Wash hands before meals to prevent gastroenteritis."
+  }
+]

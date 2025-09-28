@@ -1,13 +1,7 @@
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import List
 import logging
-
-# LangChain / Ollama imports
-from langchain_ollama import OllamaLLM
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.runnables import RunnableSequence
-from langgraph.prebuilt import create_react_agent
-from langchain_core.tools import tool
+import requests
 
 # Import your GraphConnector
 from graph_connector import GraphConnector
@@ -22,7 +16,8 @@ logger = logging.getLogger(__name__)
 BASE_DIR = Path(__file__).resolve().parent
 INSTRUCTIONS_PATH = BASE_DIR / "instructions.txt"
 
-OLLAMA_MODEL = "llama3.1:latest"  # adjust if your local Ollama model differs
+OLLAMA_MODEL = "llama3.1:latest"
+OLLAMA_API_URL = "http://localhost:11434/api/generate"  # ✅ fixed
 
 # -------------------------
 # Helpers
@@ -34,114 +29,98 @@ def load_instructions() -> str:
         )
     return INSTRUCTIONS_PATH.read_text(encoding="utf-8")
 
-# -------------------------
-# GraphConnector wrapper as Tools
-# -------------------------
-class GraphToolWrapper:
-    def __init__(self, graph: GraphConnector):
-        self.graph = graph
+def call_ollama(prompt: str, model: str = OLLAMA_MODEL, system_prompt: str = None) -> str:
+    """Direct API call to Ollama localhost."""
+    payload = {"model": model, "prompt": prompt, "stream": False}
+    if system_prompt:
+        payload["system"] = system_prompt
 
-    def diseases_by_symptoms(self, symptoms: List[str]) -> str:
-        """Return nicely formatted string with all matching diseases and details."""
-        return self.graph.build_context_from_symptoms(symptoms)
-
-
-# -------------------------
-# Build the LLM + Chain
-# -------------------------
-def build_llm_chain(ollama_model_name: str = OLLAMA_MODEL) -> RunnableSequence:
-    """Future-proof LLM chain using RunnableSequence."""
-    llm = OllamaLLM(model=ollama_model_name)
-    system_prompt = load_instructions()
-
-    prompt = ChatPromptTemplate.from_messages(
-        [
-            ("system", system_prompt),
-            ("human", "{input}")
-        ]
-    )
-
-    # Runnable pipeline: prompt → LLM
-    return prompt | llm
-
-
-# -------------------------
-# Build Tools & Agent
-# -------------------------
-def build_agent(graph: GraphConnector) -> Any:
-    wrapper = GraphToolWrapper(graph)
-
-    # Define tools using @tool decorator for LangGraph compatibility
-    @tool
-    def graph_query_by_symptoms(symptoms: str) -> str:
-        """Provide a list of diseases with full details for the given symptoms.
-        Input can be comma-separated string of symptoms."""
-        symptom_list = (
-            symptoms if isinstance(symptoms, list) else [s.strip() for s in symptoms.split(",")]
-        )
-        return wrapper.diseases_by_symptoms(symptom_list)
-
-    @tool
-    def dummy_agent(query: str) -> str:
-        """Dummy tool that returns a placeholder response."""
-        return f"DUMMY_AGENT_RESULT: This is a placeholder tool. Query was: {query}"
-
-    llm_chain = build_llm_chain()
-
-    # Future-proof agent using LangGraph ReAct agent
-    agent = create_react_agent(
-        llm_chain,
-        [graph_query_by_symptoms, dummy_agent]
-    )
-    return agent
-
-
-# -------------------------
-# High-level API: ask function (RAG + LLM)
-# -------------------------
-def ask_user_question(user_question: str, symptoms: List[str]) -> str:
-    """RAG helper: query graph, then run response generation via LLM."""
-    system_instructions = load_instructions()
-    graph = GraphConnector()
     try:
-        context_text = graph.build_context_from_symptoms(symptoms)
+        response = requests.post(OLLAMA_API_URL, json=payload, timeout=120)
+        response.raise_for_status()
+        result = response.json()
+        return result.get("response", "").strip()
+    except Exception as e:
+        raise RuntimeError(f"Error calling Ollama API: {str(e)}")
 
-        chain = build_llm_chain()
-        response = chain.invoke(
-            {
-                "input": f"""{system_instructions}
+def extract_symptoms(user_input: str) -> List[str]:
+    """Use LLM to extract one or more symptoms from natural language as simple words."""
+    system_instructions = (
+        "You are a symptom extractor. Extract all symptoms from the text. "
+        "Return them as a comma-separated list of simple one words (e.g., 'fever, cough, headache'). "
+        "Do not add extra text."
+    )
+    prompt = f"User said: '{user_input}'. Extract all core symptoms in one or two words each."
+    response = call_ollama(prompt, system_prompt=system_instructions)
 
-CONTEXT:
+    # Normalize into list
+    symptoms = [s.strip().lower() for s in response.split(",") if s.strip()]
+    return symptoms
+
+# -------------------------
+# Chatbot Logic
+# -------------------------
+def medical_chatbot():
+    """Interactive chatbot with memory, symptom extraction, and graph RAG."""
+    print("🤖 Hello! I’m your healthcare assistant.")
+    print("Please tell me your symptoms.\n")
+
+    chat_history = []  # keeps previous dialogue
+    symptoms = []
+
+    while True:
+        user_input = input("You: ").strip()
+        chat_history.append({"role": "user", "content": user_input})
+
+        # Check if user is done
+        if user_input.lower() in ["no", "none", "that's it", "finished"]:
+            if len(symptoms) < 2:
+                print("🤖 Please provide at least two symptoms to continue.")
+                continue
+            break
+
+        # Extract one or more symptoms using LLM
+        extracted = extract_symptoms(user_input)
+        new_symptoms = [s for s in extracted if s not in symptoms]
+
+        if new_symptoms:
+            symptoms.extend(new_symptoms)
+            print(f"🤖 Noted: {', '.join(new_symptoms)}.")
+        else:
+            print("🤖 I couldn’t identify new symptoms from that. Could you rephrase?")
+
+        print("🤖 Do you have any other symptoms?")
+
+    # === Run Graph Query ===
+    graph = GraphConnector()
+    context_text = graph.build_context_from_symptoms(symptoms)
+    graph.close()
+
+    if "No matching diseases" in context_text:
+        print("🤖 I couldn’t find any matching diseases for your symptoms.")
+        return
+
+    system_instructions = load_instructions()
+
+    # Final context-aware answer
+    prompt = f"""Conversation so far:
+{chat_history}
+
+Extracted symptoms: {', '.join(symptoms)}
+
+CONTEXT from knowledge graph:
 {context_text}
 
 USER QUESTION:
-{user_question}"""
-            }
-        )
-        return response
-    finally:
-        graph.close()
+Based on my symptoms, what diseases might be possible and what precautions or treatments are generally recommended?"""
 
+    response = call_ollama(prompt, system_prompt=system_instructions)
+
+    print("\n🤖 Here’s what I found:\n")
+    print(response.strip())
 
 # -------------------------
-# Example Usage
+# Run
 # -------------------------
 if __name__ == "__main__":
-    graph = GraphConnector()
-    agent = build_agent(graph)
-
-    # === Direct RAG Example ===
-    print("=== RAG Example ===")
-    ans = ask_user_question(
-        "What could be causing these symptoms and what should I do next?",
-        ["fever", "cough"]
-    )
-    print(ans)
-
-    # === Agent Example ===
-    print("\n=== Agent Example: ask agent to use graph tool ===")
-    agent_input = "Find diseases for symptoms: fever, cough. Summarize and recommend next steps."
-    agent_result = agent.invoke({"messages": [("human", agent_input)]})
-    print("\nAgent result:\n", agent_result)
-
-    graph.close()
+    medical_chatbot()

@@ -1,6 +1,6 @@
 # 🩺 Healthcare Graph-RAG Chatbot  
 
-An AI-powered **healthcare assistant** that uses a **Knowledge Graph (Neo4j)** + **RAG (Retrieval-Augmented Generation)** + **LLMs (LLaMA via Ollama + LangChain)** to answer medical queries.  
+An AI-powered **healthcare assistant** that uses a **Neo4j Knowledge Graph** + **RAG (Retrieval-Augmented Generation)** + **LLMs (LLaMA via Ollama)** to answer medical queries.  
 
 ⚠️ **Disclaimer**: This chatbot is **not a replacement for professional medical advice**. Always consult a qualified healthcare professional for medical concerns.  
 
@@ -10,23 +10,18 @@ An AI-powered **healthcare assistant** that uses a **Knowledge Graph (Neo4j)** +
 - **Conversational Chatbot**: Ask how you’re feeling, and the bot analyzes your symptoms.  
 - **Knowledge Graph Powered**: Symptoms, diseases, cures, medicines, and precautions are stored in Neo4j.  
 - **RAG Pipeline**: Queries fetch relevant knowledge graph data and inject it into the LLM context.  
-- **Agent Support**: Uses LangGraph agents + tools for flexible reasoning and multi-step actions.  
 - **Custom Instructions**: Behavior is guided by an external `instructions.txt` file.  
 
 ---
 
-## 🛠️ Tech Stack & Skills Demonstrated
+## 🛠️ Tech Stack & Libraries
 
-| Area | Technologies & Skills |
-|------|------------------------|
-| **LLMs** | [Ollama](https://ollama.ai) with **LLaMA 3** |
-| **RAG (Retrieval-Augmented Generation)** | [LangChain](https://www.langchain.com), context building |
-| **Graph Database** | [Neo4j](https://neo4j.com) |
-| **ETL & Data Engineering** | Custom pipelines to ingest raw data → JSON → Neo4j |
-| **Agents** | [LangGraph](https://langchain-ai.github.io/langgraph/) with ReAct agents & tools |
-| **Python Development** | Pydantic, structured JSON schemas, OOP |
-| **Prompt Engineering** | Instruction-based system prompts |
-| **Software Engineering Skills** | Modular code, configs, logging, testing-ready design |
+| Area | Libraries / Packages |
+|------|---------------------|
+| **Python Standard Libraries** | `pathlib`, `typing`, `logging`, `requests` |
+| **Graph Database** | `neo4j` Python driver |
+| **LLM Integration** | Ollama REST API (`requests`) |
+| **Project Modules** | `config`, `graph_connector` |
 
 ---
 
@@ -36,13 +31,13 @@ An AI-powered **healthcare assistant** that uses a **Knowledge Graph (Neo4j)** +
 healthcare-graph-rag/
 │
 ├── app/
-│   ├── graph_connector.py      # Handles Neo4j queries & builds RAG context
-│   ├── llm_agent.py            # LLM + Agent setup with Ollama + LangGraph
-│   ├── instructions.txt        # Customizable system prompt for LLM
+│   ├── graph_connector.py      # Handles Neo4j queries & builds context
+│   ├── llm_agent.py            # Interactive chatbot with symptom extraction and Ollama integration
+│   ├── instructions.txt        # System prompt for LLM
 │   └── ...
 │
 ├── data/
-│   ├── diseases.json           # Example data with cures, medicines, precautions
+│   ├── diseases.json           # Example dataset with cures, medicines, precautions
 │   ├── symptoms.json
 │   └── ...
 │
@@ -64,7 +59,7 @@ cd AI-Healthcare-Chatbot
 ```bash
 python3 -m venv venv
 source venv/bin/activate   # macOS/Linux
-venv\Scriptsctivate      # Windows
+venv\Scripts\activate     # Windows
 ```
 
 ### 3. Install Dependencies
@@ -72,20 +67,17 @@ venv\Scriptsctivate      # Windows
 pip install -r requirements.txt
 ```
 
-Key dependencies include:
+Key dependencies:
 - `neo4j`
-- `langchain`
-- `langchain-ollama`
-- `langgraph`
-- `pydantic`
+- `requests`
 
 ### 4. Setup Neo4j
 - Install [Neo4j Desktop](https://neo4j.com/download/) or run via Docker.  
-- Create a database and note down:
+- Create a database and note:
   - `NEO4J_URI`
   - `NEO4J_USER`
   - `NEO4J_PASSWORD`
-- Update these in your config or environment variables.
+- Update these in `config.py`.
 
 ### 5. Install & Run Ollama
 - Install [Ollama](https://ollama.ai/download)  
@@ -93,25 +85,6 @@ Key dependencies include:
 ```bash
 ollama pull llama3.1:latest
 ```
-
----
-
-## ▶️ Usage
-
-### Run Graph Connector
-```bash
-python app/graph_connector.py
-```
-- Tests queries against your Neo4j database.
-- Example: get diseases by symptoms, retrieve details.
-
-### Run LLM Agent
-```bash
-python app/llm_agent.py
-```
-- Starts demo mode with two flows:
-  1. **Direct RAG Query**: Injects graph context into LLM.  
-  2. **Agent Query**: Lets the agent call tools (graph query, dummy agent).  
 
 ---
 
@@ -124,7 +97,6 @@ python app/llm_agent.py
 4. **Context Builder**: Formats disease info (description, cures, medicines, precautions).  
 5. **RAG**: Injects context into the LLM prompt.  
 6. **LLM Reasoning**: LLaMA answers user queries using only graph context.  
-7. **Agent Mode**: Tools can be called dynamically for more info.  
 
 ### 🔹 Example Conversation
 ```text
@@ -139,7 +111,7 @@ Next Steps:
 - Consider paracetamol for fever
 - Consult a doctor if symptoms persist
 
-Disclaimer: I am not a doctor. Please consult a healthcare professional.
+⚠️ Disclaimer: I am not a doctor. Please consult a healthcare professional.
 ```
 
 ---
@@ -160,10 +132,8 @@ flowchart TD
 ---
 
 ## 🔧 Skills Showcased for Resume/Portfolio
-- ✅ Retrieval-Augmented Generation (RAG) with LangChain  
-- ✅ Neo4j Knowledge Graph integration  
+- ✅ Retrieval-Augmented Generation (RAG) with Neo4j context  
 - ✅ LLaMA model deployment via Ollama  
-- ✅ AI Agents with LangGraph (ReAct paradigm)  
 - ✅ Python best practices (modular code, OOP, configs)  
 - ✅ Prompt engineering with instruction-tuning  
 
@@ -172,7 +142,6 @@ flowchart TD
 ## 📌 Next Steps / Future Improvements
 - Add **NER-based Symptom Extraction** (spaCy, transformers).  
 - Expand dataset with real medical ontologies (e.g., SNOMED CT).  
-- Enhance **agent with external APIs** (drug info, hospitals).  
 - Build a **frontend (React/Streamlit)** for patient-like interaction.  
 - Add **evaluation metrics** for chatbot responses.  
 
@@ -181,4 +150,4 @@ flowchart TD
 ## ⚠️ Disclaimer
 This project is for **educational purposes only**.  
 It is **not a substitute for professional medical advice, diagnosis, or treatment**.  
-Always seek advice from a licensed healthcare provider.  
+Always consult a licensed healthcare provider.

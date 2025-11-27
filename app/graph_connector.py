@@ -102,7 +102,7 @@ if __name__ == "__main__":
     connector = GraphConnector()
 
     context = connector.build_context_from_symptoms(["Sneezing", "Fever"])
-    print("=== Context from Symptoms ===")
+    print("=== Context from Symptoms === \n")
     print(context)
 
     connector.close()

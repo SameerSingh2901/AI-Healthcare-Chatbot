@@ -151,3 +151,6 @@ flowchart TD
 This project is for **educational purposes only**.  
 It is **not a substitute for professional medical advice, diagnosis, or treatment**.  
 Always consult a licensed healthcare provider.
+
+Thank you for reading.
+Sameer

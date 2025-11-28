@@ -133,6 +133,7 @@ flowchart TD
 
 ## 🔧 Skills Showcased for Resume/Portfolio
 - ✅ Retrieval-Augmented Generation (RAG) with Neo4j context  
+- ✅ Graph Database 
 - ✅ LLaMA model deployment via Ollama  
 - ✅ Python best practices (modular code, OOP, configs)  
 - ✅ Prompt engineering with instruction-tuning  

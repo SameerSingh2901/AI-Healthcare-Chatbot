@@ -3,8 +3,6 @@ from pathlib import Path
 from typing import List
 
 import requests
-
-# Import your GraphConnector
 from graph_connector import GraphConnector
 
 # Logging

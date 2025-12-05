@@ -1,15 +1,14 @@
+from config import Config
 from neo4j import GraphDatabase
-from config import Config 
 
 
 class GraphConnector:
     def __init__(self):
         """Initialize Neo4j driver using config settings"""
         self.driver = GraphDatabase.driver(
-            Config.NEO4J_URI,
-            auth=(Config.NEO4J_USER, Config.NEO4J_PASSWORD)
+            Config.NEO4J_URI, auth=(Config.NEO4J_USER, Config.NEO4J_PASSWORD)
         )
-        self.database = Config.NEO4J_DATABASE  
+        self.database = Config.NEO4J_DATABASE
 
     def close(self):
         """Close Neo4j driver."""
@@ -48,7 +47,6 @@ class GraphConnector:
             """
             return session.run(query, symptoms=symptoms).data()
 
-
     # =======================
     # Context Builders (for RAG)
     # =======================
@@ -65,7 +63,9 @@ class GraphConnector:
         context += "Possible Diseases and Details:\n"
 
         for d in diseases:
-            context += f"\n🩺 {d['disease_name']} (Prevalence: {d.get('prevalence','N/A')})\n"
+            context += (
+                f"\n🩺 {d['disease_name']} (Prevalence: {d.get('prevalence','N/A')})\n"
+            )
             context += f"Description: {d.get('description','N/A')}\n"
 
             if d["symptoms"]:
@@ -92,10 +92,10 @@ class GraphConnector:
                     if p["name"]:
                         context += f"- {p['name']}: {p.get('description','')}\n"
 
-            context += "\n" + "-"*40 + "\n"
+            context += "\n" + "-" * 40 + "\n"
 
         return context.strip()
-    
+
 
 # =======================
 if __name__ == "__main__":

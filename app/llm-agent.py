@@ -1,8 +1,8 @@
+import logging
 from pathlib import Path
 from typing import List
-import logging
-import requests
 
+import requests
 # Import your GraphConnector
 from graph_connector import GraphConnector
 
@@ -19,17 +19,19 @@ INSTRUCTIONS_PATH = BASE_DIR / "instructions.txt"
 OLLAMA_MODEL = "llama3.1:latest"
 OLLAMA_API_URL = "http://localhost:11434/api/generate"  # ✅ fixed
 
+
 # -------------------------
 # Helpers
 # -------------------------
 def load_instructions() -> str:
     if not INSTRUCTIONS_PATH.exists():
-        return (
-            "You are a helpful medical assistant. Provide clear, concise answers and disclaimers."
-        )
+        return "You are a helpful medical assistant. Provide clear, concise answers and disclaimers."
     return INSTRUCTIONS_PATH.read_text(encoding="utf-8")
 
-def call_ollama(prompt: str, model: str = OLLAMA_MODEL, system_prompt: str = None) -> str:
+
+def call_ollama(
+    prompt: str, model: str = OLLAMA_MODEL, system_prompt: str = None
+) -> str:
     """Direct API call to Ollama localhost."""
     payload = {"model": model, "prompt": prompt, "stream": False}
     if system_prompt:
@@ -42,6 +44,7 @@ def call_ollama(prompt: str, model: str = OLLAMA_MODEL, system_prompt: str = Non
         return result.get("response", "").strip()
     except Exception as e:
         raise RuntimeError(f"Error calling Ollama API: {str(e)}")
+
 
 def extract_symptoms(user_input: str) -> List[str]:
     """Use LLM to extract one or more symptoms from natural language as simple words."""
@@ -56,6 +59,7 @@ def extract_symptoms(user_input: str) -> List[str]:
     # Normalize into list
     symptoms = [s.strip().lower() for s in response.split(",") if s.strip()]
     return symptoms
+
 
 # -------------------------
 # Chatbot Logic
@@ -118,6 +122,7 @@ Based on my symptoms, what diseases might be possible and what precautions or tr
 
     print("\n🤖 Here’s what I found:\n")
     print(response.strip())
+
 
 # -------------------------
 # Run

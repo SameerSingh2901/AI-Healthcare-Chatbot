@@ -1,6 +1,7 @@
+import csv
 import os
 import sys
-import csv
+
 from neo4j import GraphDatabase
 
 # For data paths
@@ -11,14 +12,14 @@ PROCESSED_DIR = os.path.join(BASE_DIR, "processed_data")
 PROJECT_ROOT = os.path.dirname(BASE_DIR)
 sys.path.append(PROJECT_ROOT)
 
-from app.config import Config   # Import Config class
+from app.config import Config  # Import Config class
+
 
 class Neo4jImporter:
     def __init__(self):
         """Initialize Neo4j driver using config settings"""
         self.driver = GraphDatabase.driver(
-            Config.NEO4J_URI,
-            auth=(Config.NEO4J_USER, Config.NEO4J_PASSWORD)
+            Config.NEO4J_URI, auth=(Config.NEO4J_USER, Config.NEO4J_PASSWORD)
         )
         self.database = Config.NEO4J_DATABASE
 
@@ -50,7 +51,7 @@ class Neo4jImporter:
                         name=row["name"],
                         description=row["description"],
                         body_site=row["body_site"],
-                        commonness=row["commonness"]
+                        commonness=row["commonness"],
                     )
         print("✅ Symptoms imported")
 
@@ -68,7 +69,7 @@ class Neo4jImporter:
                         id=row["cure_id"],
                         name=row["name"],
                         description=row["description"],
-                        type=row["type"]
+                        type=row["type"],
                     )
         print("✅ Cures imported")
 
@@ -88,7 +89,7 @@ class Neo4jImporter:
                         name=row["name"],
                         description=row["description"],
                         drug_class=row["drug_class"],
-                        dosage_form=row["dosage_form"]
+                        dosage_form=row["dosage_form"],
                     )
         print("✅ Medicines imported")
 
@@ -104,7 +105,7 @@ class Neo4jImporter:
                         """,
                         id=row["precaution_id"],
                         name=row["name"],
-                        description=row["description"]
+                        description=row["description"],
                     )
         print("✅ Precautions imported")
 
@@ -126,7 +127,7 @@ class Neo4jImporter:
                         canonical_id=row["canonical_id"],
                         description=row["description"],
                         prevalence=row["prevalence"],
-                        risk_factors=row["risk_factors"]
+                        risk_factors=row["risk_factors"],
                     )
         print("✅ Diseases imported")
 
@@ -145,7 +146,7 @@ class Neo4jImporter:
                         """,
                         disease_id=row["disease_id"],
                         symptom_id=row["symptom_id"],
-                        weight=row["weight"]
+                        weight=row["weight"],
                     )
         print("✅ Disease-Symptom relationships imported")
 
@@ -160,7 +161,7 @@ class Neo4jImporter:
                         MERGE (d)-[:CURED_BY]->(c)
                         """,
                         disease_id=row["disease_id"],
-                        cure_id=row["cure_id"]
+                        cure_id=row["cure_id"],
                     )
         print("✅ Disease-Cure relationships imported")
 
@@ -175,7 +176,7 @@ class Neo4jImporter:
                         MERGE (d)-[:TREATED_WITH]->(m)
                         """,
                         disease_id=row["disease_id"],
-                        medicine_id=row["medicine_id"]
+                        medicine_id=row["medicine_id"],
                     )
         print("✅ Disease-Medicine relationships imported")
 
@@ -190,9 +191,10 @@ class Neo4jImporter:
                         MERGE (d)-[:REQUIRES_PRECAUTION]->(p)
                         """,
                         disease_id=row["disease_id"],
-                        precaution_id=row["precaution_id"]
+                        precaution_id=row["precaution_id"],
                     )
         print("✅ Disease-Precaution relationships imported")
+
 
 # ------------------ RUN SCRIPT ------------------
 
@@ -209,10 +211,16 @@ if __name__ == "__main__":
     importer.import_diseases(os.path.join(PROCESSED_DIR, "diseases.csv"))
 
     # Import relationships
-    importer.import_disease_symptom(os.path.join(PROCESSED_DIR, "disease_has_symptom.csv"))
+    importer.import_disease_symptom(
+        os.path.join(PROCESSED_DIR, "disease_has_symptom.csv")
+    )
     importer.import_disease_cure(os.path.join(PROCESSED_DIR, "disease_has_cure.csv"))
-    importer.import_disease_medicine(os.path.join(PROCESSED_DIR, "disease_has_medicine.csv"))
-    importer.import_disease_precaution(os.path.join(PROCESSED_DIR, "disease_has_precaution.csv"))
+    importer.import_disease_medicine(
+        os.path.join(PROCESSED_DIR, "disease_has_medicine.csv")
+    )
+    importer.import_disease_precaution(
+        os.path.join(PROCESSED_DIR, "disease_has_precaution.csv")
+    )
 
     importer.close()
     print(f"🎉 All data imported into Neo4j database: {Config.NEO4J_DATABASE}")
